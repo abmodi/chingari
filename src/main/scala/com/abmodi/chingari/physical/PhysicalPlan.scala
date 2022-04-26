@@ -5,7 +5,7 @@ import com.abmodi.chingari.core.{ColumnBatch, Schema}
 abstract class PhysicalPlan {
   def output() :Schema
 
-  def execute() : Seq[ColumnBatch]
+  def execute() : Iterator[ColumnBatch]
 
   def children : Seq[PhysicalPlan]
 

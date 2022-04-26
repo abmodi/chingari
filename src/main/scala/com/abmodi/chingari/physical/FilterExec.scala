@@ -8,7 +8,7 @@ case class FilterExec(input: PhysicalPlan,
 
   override def children: Seq[PhysicalPlan] = Seq(input)
 
-  override def execute(): Seq[ColumnBatch] = {
+  override def execute(): Iterator[ColumnBatch] = {
     input.execute().map(batch => {
       val selectionVector = filter.eval(batch)
       val filteredColumnVectors = batch.columnVectors.map(cv => {

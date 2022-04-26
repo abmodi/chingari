@@ -6,7 +6,7 @@ case class InMemoryDataSource(sch: Schema,
                               data: Seq[ColumnBatch]) extends DataSource {
   override def schema: Schema = sch
 
-  override def scan(projectList: Seq[String]): Seq[ColumnBatch] = {
+  override def scan(projectList: Seq[String]): Iterator[ColumnBatch] = {
     val projectionIndices = projectList.map {
       sch.fields.map(_.name).indexOf(_)
     }
@@ -14,7 +14,7 @@ case class InMemoryDataSource(sch: Schema,
     val projectedBatch = data.map(batch => {
       new ColumnBatch(newSchema, projectionIndices.map(batch.getColumn))
     })
-    projectedBatch
+    projectedBatch.iterator
   }
 
   override def toString: String = "InMemoryDataSource"

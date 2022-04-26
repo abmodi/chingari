@@ -5,5 +5,5 @@ import com.abmodi.chingari.core.{ColumnBatch, Schema}
 trait DataSource {
   def schema: Schema
 
-  def scan(projectList: Seq[String]): Seq[ColumnBatch]
+  def scan(projectList: Seq[String]): Iterator[ColumnBatch]
 }

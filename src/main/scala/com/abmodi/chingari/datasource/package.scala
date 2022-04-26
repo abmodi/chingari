@@ -1,5 +1,5 @@
 package com.abmodi.chingari
 
 package object datasource {
-  val BATCH_SIZE = 1000
+  val BATCH_SIZE = 2
 }

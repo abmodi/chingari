@@ -36,7 +36,7 @@ case class DataFrame(plan : LogicalPlan) {
     _physicalPlan
   }
 
-  def execute() : Seq[ColumnBatch] = {
+  def execute() : Iterator[ColumnBatch] = {
     _physicalPlan.execute()
   }
 }

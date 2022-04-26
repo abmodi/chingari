@@ -17,7 +17,7 @@ case class HashAggregateExec(input: PhysicalPlan,
     s"grouping expressions: ${groupExp.map(_.toString()).mkString(",")};" +
     s"aggregate expressions: ${aggExp.map(_.toString).mkString(",")}"
 
-  override def execute(): Seq[ColumnBatch] = {
+  override def execute(): Iterator[ColumnBatch] = {
     val map = mutable.HashMap[Seq[Any], Seq[Accumulator]]()
     input.execute().foreach(batch => {
       val groupKeys = groupExp.map(_.eval(batch))
@@ -43,7 +43,7 @@ case class HashAggregateExec(input: PhysicalPlan,
       case (field, index) => new GenericColumnVector(field.datatype, arr(index))
     }
 
-    Seq(new ColumnBatch(schema, colVectors))
+    Seq(new ColumnBatch(schema, colVectors)).iterator
   }
 
 }

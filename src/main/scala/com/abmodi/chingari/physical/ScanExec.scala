@@ -10,7 +10,7 @@ case class ScanExec(ds: DataSource,
 
   override def children: Seq[PhysicalPlan] = Seq.empty
 
-  override def execute(): Seq[ColumnBatch] = ds.scan(projectionList)
+  override def execute(): Iterator[ColumnBatch] = ds.scan(projectionList)
 
   override def toString: String = s"ScanExec: $ds"
 }

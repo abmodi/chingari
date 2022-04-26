@@ -9,7 +9,7 @@ case class ProjectExec(input: PhysicalPlan,
 
   override def children: Seq[PhysicalPlan] = Seq(input)
 
-  override def execute(): Seq[ColumnBatch] = {
+  override def execute(): Iterator[ColumnBatch] = {
     input.execute().map({
       batch => {
         val columns = expressions.map(expr => expr.eval(batch))

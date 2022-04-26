@@ -20,7 +20,7 @@ object Example extends App {
                                   MultiplyExpression(ColumnExpression(1), LiteralIntExpression(5))))
   val maxAgg = HashAggregateExec(projectExec, Seq(ColumnExpression(0)), Seq(SumExpression(ColumnExpression(1))),
     Schema(Seq(SchemaField("a", IntegerType), SchemaField("max(b)", IntegerType))))
-  println(maxAgg.execute().head.toCSV())
+  println(maxAgg.execute().next().toCSV())
 
   val scan = Scan(csvDataSource, Seq.empty)
   val dataFrame = DataFrame(scan).filter(Gt(Col("a"), Literal(3)))
@@ -29,12 +29,12 @@ object Example extends App {
   dataFrame.logicalPlan()
   dataFrame.physicalPlan()
 
-  println(dataFrame.execute().head.toCSV())
+  println(dataFrame.execute().next().toCSV())
 
   val ctx = Context()
   ctx.registerCsv("example", path,
     schema)
-  val df = ctx.sql("select sum(a*5) FROM example WHERE b > 2 GROUP BY b * 0")
-  println(df.physicalPlan().execute().head.toCSV())
+  val df = ctx.sql("select a FROM example WHERE b > 2")
+  println(df.physicalPlan().execute().next().toCSV())
 
 }
