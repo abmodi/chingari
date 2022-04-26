@@ -5,4 +5,4 @@ Single node sql engine
 mvn clean package
 
 ## run
-check example.scala
+java -Dscala.usejavacp=true -cp <path_to>/chingari-1.0-SNAPSHOT-jar-with-dependencies.jar com.abmodi.chingari.repl.Main
