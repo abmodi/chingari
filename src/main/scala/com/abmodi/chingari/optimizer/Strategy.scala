@@ -69,6 +69,7 @@ object Strategy {
       case Sum(expr) => SumExpression(createPhysicalExpr(expr, input))
       case Max(expr) => MaxExpression(createPhysicalExpr(expr, input))
       case Min(expr) => MinExpression(createPhysicalExpr(expr, input))
+      case Count(expr) => CountExpression(createPhysicalExpr(expr, input))
     }
   }
 }

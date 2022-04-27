@@ -1,7 +1,5 @@
 package com.abmodi.chingari.repl
 
-import com.abmodi.chingari.core.Context
-
 import scala.tools.nsc.GenericRunnerSettings
 
 object Main {

@@ -152,7 +152,7 @@ case class Max(expr : LogicalExpression) extends AggregateExpression("MAX", expr
 case class Min(expr : LogicalExpression) extends AggregateExpression("MIN", expr)
 
 case class Count(expr : LogicalExpression) extends AggregateExpression("COUNT", expr) {
-  override def output(input: LogicalPlan): SchemaField = SchemaField("COUNT", IntegerType)
+  override def output(input: LogicalPlan): SchemaField = SchemaField("COUNT", LongType)
 }
 
 case class Average(expr : LogicalExpression) extends AggregateExpression("AVG", expr)
