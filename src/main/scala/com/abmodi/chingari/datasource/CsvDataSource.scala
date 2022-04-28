@@ -13,7 +13,7 @@ case class CsvDataSource(filePath : String,
                          schema : Schema,
                         ) extends DataSource {
 
-  class ColumnBatchIterator(parser : CsvParser) extends Iterator[ColumnBatch] {
+  class ColumnBatchIterator(parser : CsvParser, schema: Schema) extends Iterator[ColumnBatch] {
     private var nextBatch : Option[ColumnBatch] = None
     private var started = false
 
@@ -113,7 +113,7 @@ case class CsvDataSource(filePath : String,
     val parser = new CsvParser(settings)
     parser.beginParsing(file)
     parser.getDetectedFormat
-    new ColumnBatchIterator(parser)
+    new ColumnBatchIterator(parser, readSchema)
   }
 
 

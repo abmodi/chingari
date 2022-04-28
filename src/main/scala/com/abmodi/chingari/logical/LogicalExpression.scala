@@ -143,6 +143,8 @@ abstract class AggregateExpression(name : String,
   override def output(input: LogicalPlan): SchemaField = SchemaField(name, expr.output(input).datatype)
 
   override def toString: String = s"$name($expr)"
+
+  def child() : LogicalExpression = expr
 }
 
 case class Sum(expr : LogicalExpression) extends AggregateExpression("SUM", expr)

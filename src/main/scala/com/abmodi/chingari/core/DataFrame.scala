@@ -2,11 +2,11 @@ package com.abmodi.chingari.core
 
 import com.abmodi.chingari.logical.{Aggregate, Filter, LogicalExpression, LogicalPlan, Project}
 import com.abmodi.chingari.logical.AggregateExpression
-import com.abmodi.chingari.optimizer.Strategy
+import com.abmodi.chingari.optimizer.{Optimizer, Strategy}
 import com.abmodi.chingari.physical.PhysicalPlan
 
 case class DataFrame(plan : LogicalPlan) {
-  private lazy val _optimizedPlan = plan
+  private lazy val _optimizedPlan = Optimizer().optimize(plan)
   private lazy val _physicalPlan = Strategy(_optimizedPlan)
 
   def project(projectList : Seq[LogicalExpression]): DataFrame = {
